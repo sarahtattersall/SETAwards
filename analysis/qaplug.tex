@@ -1,0 +1,44 @@
+\mediumlinespacing
+\begin{figure}[tbp]
+\begin{framed}
+\begin{itemize}
+    \item \textcolor{red}{\textbf{Efficiency: 225}}
+    \begin{itemize}
+        \item \textit{`Performance -  Method concatenates strings using + in a loop count: 44'} --- In each iteration, the String is converted to a StringBuffer/StringBuilder, appended to, and converted back to a String. This can lead to a cost quadratic in the number of iterations, as the growing string is recopied in each iteration. Better performance can be obtained by using a StringBuffer (or StringBuilder in Java 1.5) explicitly.
+        \item \textit{`Avoid Array Loops count: 3 - System.arraycopy is more efficient'} --- Instead of copying data between two arrays, use System.arrayCopy method.
+    \end{itemize}
+
+    \item \textcolor{red}{\textbf{Maintainability: 1803}}
+    \begin{itemize}
+        \item \textit{`Avoid duplicate literals count: 160'} --- Can usually be improved by declaring the String as a constant field.
+        \item \textit{`Bad practice - Comparison of string objects using == or != count: 7'} --- This code compares java.lang.String objects for reference equality using the == or != operators. Unless both strings are either constants in a source file, or have been interned using the String.intern() method, the same string value may be represented by two different String objects. Consider using the equals(Object) method instead.
+        \item \textit{`God class count: 66'} --- The God class rule detects the God Class design flaw using metrics. God classes do too many things, are very big and overly complex. They should be split apart to become more object-orientated. 
+    \end{itemize}
+      
+     \item \textcolor{red}{\textbf{Portability: 47}} 
+    \begin{itemize}
+        \item \textit{`Replace Vector With List count: 22'} ---
+            Consider replacing Vector usages with the newer 
+        java.util.ArrayList if expensive thread-safe operation is not required.
+        \item \textit{`Integer Instantiation count: 19'} --- Calling new Integer() causes memory allocation. Integer.valueOf() is more memory friendly.
+    \end{itemize}
+    
+    \item \textcolor{red}{\textbf{Reliability: 1847}}
+    \begin{itemize}
+        \item \textit{`Malicious code vulnerability - May expose internal representation by returning reference to mutable object count: 10'}. --- Returning a reference to a mutable object value stored in one of the object's fields exposes the internal representation of the object. If instances are accessed by untrusted code, and unchecked changes to the mutable object would compromise security or other important properties, you will need to do something different. Returning a new copy of the object is better approach in many situations.
+        \item \textit{`Magic Number count: 1385'} --- Checks for magic numbers.
+    \end{itemize}
+
+    \item \textcolor{red}{\textbf{Usability: 8982}}
+    \begin{itemize}
+        \item \textit{`Dodgy - write to static field from instance method count: 49'} --- This instance method writes to a static field. This is tricky to get correct if multiple instances are being manipulated, and generally bad practice. 
+        \item \textit{`System Println count: 412'} --- System.(out|err).print is used, consider using a logger.
+        \item \textit{`Code Too Long count: 15'} --- Method is too long.
+
+    \end{itemize}
+\end{itemize} 
+\end{framed}
+\caption{Examples of interesting code quality issues highlighted by the QAPlug plug-in for IntelliJ for the pre-existing PIPE codebase.}
+\label{fig:qaplug}
+\end{figure}
+\normallinespacing

@@ -1,0 +1,43 @@
+\begin{figure}
+\begin{lstlisting}[frame=single, 
+                   ]
+public Double parseAndEvalExprForTransition(String expr) throws EvaluationException{
+  String lexpr=new String(expr.replaceAll("\\s",""));
+  Iterator iterator = _pnmldata.getPetriNetObjects();
+  Object pn;
+  String name;
+  if (iterator != null) {
+    while (iterator.hasNext()) {
+      pn = iterator.next();
+
+      //we parse the places with their number of tokens
+      if (pn instanceof PlaceView) {
+        lexpr = findAndReplaceCapacity(lexpr, pn);
+        name=((PlaceView) pn).getName().replaceAll("\\s","");
+        name = ("#("+name+")");
+        if(lexpr.toLowerCase().contains(name.toLowerCase())){
+          int numOfToken=((PlaceView) pn).getTotalMarking();
+          do{
+            lexpr=lexpr.toLowerCase().replace(name.toLowerCase(),
+              numOfToken+"");
+          }while(lexpr.toLowerCase().contains(name.toLowerCase()));
+        }
+      }
+    }
+  }
+  Evaluator evaluator = new Evaluator();
+  String result = null;
+  try {
+    result = evaluator.evaluate(lexpr);
+  } catch (EvaluationException e) {
+    throw e;
+    //e.printStackTrace();
+  }
+
+  Double dresult = Double.parseDouble(result);
+  return dresult;
+}
+\end{lstlisting}
+\caption{The parsing of a functional rate in the \texttt{ExprEvaluator} class. This code is particularly unclean because it loops through every Petri net object looking for a place and then queries the string to see if the place's id is referenced. Despite the underlying implementation being nonoptimal this code could benefit from the use of foreach loops instead of iterators, keeping declaration and assignment together and the spliting of operations into multiple lines for clarity. The formatting has been left as found in the class.}
+\label{lst:expr_eval}
+\end{figure}

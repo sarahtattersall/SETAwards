@@ -1,0 +1,82 @@
+\setfigname{}
+\begin{tikzpicture}[node distance=2.5cm,>=stealth',bend angle=45,auto]
+    \node [place,tokens=1, label=south:dark] (dark) {};
+
+    \node [timed transition,label=north:sunrise] (sunrise) [above right of=dark] {}
+        edge [pre]  (dark);
+
+    \node [timed transition,label=north:sunset] (sunset) [below right of=dark] {}
+        edge [pre]  (dark);
+
+    \node [place,tokens=1, label=south:H2O] (h2o) [above left of = sunrise] {};
+        % edge [post] (t3);
+
+    \node [timed transition,label=north:photosynthesis, xshift=1.75cm] (photo) [above right of=h2o] {}
+    edge [pre]  (h2o);    
+
+
+    \node [place,tokens=1, label=south:CO2, xshift=-1.75cm] (co2) [above left of = photo] {}
+    edge [post] (photo);
+
+    \node [place, label=south:light] (light) [above right of = sunset] {}
+    edge [pre] (sunset)
+    edge [pre] (sunrise)
+    edge [pre] (photo)
+    edge [post] (photo);
+
+    \node [place, label=south:C6H12O6, xshift=1.75cm] (sugar) [above right of = photo] {}
+    edge [pre] (photo);
+
+    \node [place, label=south:O2,xshift=1.75cm] (o2) [below right of = photo] {}
+    edge [pre] (photo);
+        % edge [post] (t3);
+
+
+    \node [timed transition,label=north:metabolism, xshift=1.75cm] (met) [above right of=o2] {}
+    edge [pre] (sugar)
+    edge [pre]  (o2);   
+
+    \node[coordinate, yshift=0.2cm] (empty1) [right=0.8cm of met]{};
+    \node[coordinate, yshift=-0.2cm] (empty2) [right=0.8cm of met]{};
+    \node[coordinate] (empty3) [above=0.5cm of sugar]{};
+    \node[coordinate] (empty3) [above=0.5cm of co2]{};
+    \node[coordinate] (empty4) [below=0.5cm of sunset]{};
+    \node[coordinate] (empty5) [left=0.5cm of co2]{};
+    \node[coordinate] (empty6) [left=0.5cm of h2o]{};
+
+
+
+  \draw[->]
+      (met) -- (empty1) |- (empty3) -| (empty5) -- (co2);
+  \draw[->]
+      (met) -- (empty2) |- (empty4) -|  (empty6) -- (h2o);
+
+
+
+      % \node [place,label=west:$p_2$] (p2) [below right of = t1] {}
+      %   edge [pre]  (t1);
+
+      % \node [timed transition,label=east:$t_2$] (t2) [below left of=p2] {}
+      %   edge [pre]  (p2);
+
+
+      % \node [timed transition, label=east:$t_3$] (t3) [below of=t2] {};
+      
+      % \node [place,tokens=1, label=west:$p_3$] (p3) [below left of = t3] {}
+      %   edge [post] (t3);
+
+      % \node [place, label=west:$p_4$] (p4) [below right of = t3] {}
+      %   edge [pre] (t3);
+
+      % \node [timed transition,label=east:$t_4$] (t4) [below left of=p4] {}
+      %   edge [pre]  (p4);
+
+      % \draw[
+      %   >=latex,
+      %   auto=right,                      % or
+      %   loop above/.style={out=75,in=105,loop},
+      %   every loop,
+      %   ]
+      %    (t2)   edge node {}   (p1)
+      %    (t4)   edge node {}   (p3);
+\end{tikzpicture} 

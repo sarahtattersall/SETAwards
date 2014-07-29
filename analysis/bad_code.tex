@@ -1,0 +1,71 @@
+\begin{figure}[b]
+\begin{center}
+  \begin{subfigure}[b]{\linewidth}
+    \begin{lstlisting}[frame=single]
+private String compareTransitions(TransitionView[] source, TransitionView[] comparison, boolean compareID, boolean compareName, boolean compareRate,  boolean comparePriority) {
+  ...
+  if((!compareID || source[i].getId().equals(comparison[j].getId())) &&
+    (!compareName || source[i].getName().equals(comparison[j].getName())) &&
+    (!compareMarking || source[i].getCurrentMarkingView().get(0).getCurrentMarking()
+      == comparison[j].getCurrentMarkingView().get(0)
+      .getCurrentMarking()) &&
+    (!compareCapacity || source[i].getCapacity() == comparison[j].getCapacity()))
+    {
+      s = "Identical";
+    }
+  ...
+}
+    \end{lstlisting}
+    \caption{A snippet of the code used in the comparison module in 
+            \texttt{Comparison.java} to determine equality and similarities between
+            Petri nets. These specific lines of code are particularly difficult to understand and are used to determine the equality of two arcs. This code appears 3 times within the same class.}
+  \end{subfigure}
+
+
+\begin{subfigure}[b]{\linewidth}
+    \vspace{0.5cm}
+    \begin{lstlisting}[frame=single]
+public class AnnotationPanel extends javax.swing.JPanel {
+  ...
+  private void exit() {
+      //Provisional!
+      this.getParent().getParent().getParent()
+        .getParent().setVisible(false);
+    }
+  ...
+}
+    \end{lstlisting}
+  \caption{\texttt{AnnotationPanel.java} exit method. The usage of \texttt{getParent} makes the code susceptible to bugs from a layout change elsewhere. It is 
+  also impossible to tell from the code which Swing component was intended to be closed. The comment adds no clues. An alternative to this should have been to use the \texttt{SwingUtlities} class which provides plenty of useful methods for getting parents and root level panes.}
+  \end{subfigure}
+  
+\end{center}
+\end{figure}
+
+
+\begin{figure}[tb]
+\begin{center}
+\ContinuedFloat
+
+
+
+    \begin{subfigure}[b]{\linewidth}
+    \vspace{0.5cm}
+    \begin{lstlisting}[frame=single]
+public File openFile() {
+  if (showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+    try {
+      return getSelectedFile().getCanonicalFile();
+    } catch (IOException e) {
+      /* gulp */
+    }
+  }
+  return null;
+}
+    \end{lstlisting}
+    \caption{Ignoring exceptions is a very bad practice in Java because it hides genuine errors in the code and makes debugging very difficult. Not only is this an example of bad software engineering in \texttt{FileBrowser.java} but the comment is inexcusable.}
+  \end{subfigure}
+\caption{Examples of poor quality code in PIPE 4.}
+\label{lst:identical}
+\end{center}
+\end{figure}

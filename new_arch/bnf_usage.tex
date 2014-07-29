@@ -1,0 +1,33 @@
+
+\begin{table}[tb]
+\begin{center}
+  \begin{tabular}{| l | p{10cm} |}
+    \hline
+    Expression & Meaning \\ 
+    \hline
+    \texttt{\#(P0)} & The sum of all tokens in the place with id P0 \\
+    
+    \hline
+    \texttt{\#(P0, Default)} & The number of Default tokens in the place with id P0 \\
+    
+    \hline
+    \texttt{\#(P0, Default)*10} & The number of Default tokens in the place with id P0 multiplied by 10\\
+    
+    \hline
+    \texttt{floor(10.5/3)} & the floor of $10.5/3$, i.e. $3$\\
+    
+    \hline
+    \texttt{ceil(cap(P0) * 2.4)} & The ceiling of the capacity (max number of tokens allowed) in the place with id P0 multiplied by 2.5 \\
+
+    \hline
+    \texttt{\#(P0, Default)} & The number of Default tokens in the place with id P0 \\
+
+    \hline
+    \texttt{\#(P1) + \#(P2)} & The sum of the total number of tokens in the places P1 and P2 \\
+    \hline
+
+  \end{tabular}
+\caption{Example usage of PIPE 5 functional weights. It aims to resolve the ambiguity between places token counts by giving the user the choice of all tokens within a place or the count of a specific token within a place.}
+\label{tbl:functional_weights}
+\end{center}
+\end{table}

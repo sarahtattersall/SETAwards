@@ -1,0 +1,46 @@
+\documentclass[11pt]{article}
+\input{misc/packages}
+\input{misc/settings}
+
+\newcommand{\normallinespacing}{\renewcommand{\baselinestretch}{1.5} \normalsize}
+\newcommand{\mediumlinespacing}{\renewcommand{\baselinestretch}{1.2} \normalsize}
+\newcommand{\narrowlinespacing}{\renewcommand{\baselinestretch}{1.0} \normalsize}
+
+\begin{document}
+
+\input{misc/title_page.tex}
+% \pagebreak
+
+% \input{abstract/abstract.tex}
+% \input{acknowledgements/acknowledgements.tex}
+% \tableofcontents
+
+\input{overview/overview}
+\input{petri/petri}
+\input{analysis/analysis}
+\input{build/build}
+\input{new_arch/new_arch}
+\input{modules/modules}
+% \input{build}
+
+% \input{intro/intro.tex}
+% \input{background/background.tex}
+% \input{pipe_features/pipe.tex}
+% \input{pipe_architecture/arch.tex}
+% \input{tools/tools.tex}
+% \input{pipe_core/core.tex}
+% \input{pipe_gui/pipe_gui.tex}
+% \input{pipe_analysis/pipe_analysis.tex}
+% \input{evaluation/evaluation.tex}
+% \input{conclusion/conclusion.tex}
+
+% % \input{project_plan/project_plan.tex}
+% % \input{evaluation_plan/evaluation_plan.tex}
+
+\bibliography{misc/references}
+% % entries appear in order of citation
+\bibliographystyle{unsrt}
+
+% \input{appendix/appendix.tex}
+
+\end{document}

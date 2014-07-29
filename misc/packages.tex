@@ -1,0 +1,219 @@
+%%%%%%%%%%% PACKAGES %%%%%%%%%%%
+
+% Exclude lstlisting from texcount
+%TC:group lstlisting 0 0
+
+
+% For title page date
+\usepackage{datetime}
+\newdateformat{monthyear}{\monthname[\THEMONTH] \THEYEAR} 
+
+\usepackage[tomorrow]{misc/colorscheme/colorscheme}
+
+% For getting the name of the current file
+\usepackage{currfile}
+% For naming tikz files
+\newcommand{\setfigname}[0]{\tikzsetnextfilename{\currfilebase}}
+% Do not externalize the next image with call to \internal{}
+\newcommand{\internal}[0]{\tikzset{external/export next=false}}
+
+% For line spacing
+\usepackage{setspace}\onehalfspace
+
+% For well contents appendex
+\usepackage[toc,page]{appendix}
+
+% For margins
+\usepackage[inner=1.3in,outer=1.3in]{geometry}
+
+% For pseudocode
+\usepackage[]{algorithm2e}
+
+% For picture includes
+\usepackage{graphicx}
+
+% For centering all figures/captions without putting centering
+\usepackage{floatrow}
+
+% Stop figures being placed out of their section
+\usepackage[section]{placeins}
+
+% To wrap figures with text
+\usepackage{wrapfig}
+
+% URL in references
+\usepackage{url}
+
+% Makes numbers more readable by wrapping them in \num{} it 
+% helps space them out
+\usepackage{siunitx}
+
+% For more code snippets
+% \usepackage[outputdir=./output]{minted}
+
+% For code snippets
+\usepackage{listings}
+
+%For fancy mathmode stuff (mathbb etc)
+\usepackage{amsfonts}
+
+
+%For useful math stuff like cases, align* etc
+\usepackage{amsmath}
+
+% For subfigures and captions
+% \usepackage{subfigure}
+
+% For subcaptions & subfigures
+\usepackage{subcaption, caption}
+
+
+% For new line instead of para indents
+\usepackage[parfill]{parskip}
+
+% For quotes under chapter as an epigraph
+\usepackage{epigraph}
+\renewcommand{\epigraphflush}{center}
+\setlength{\epigraphrule}{0pt}
+\setlength{\epigraphwidth}{0.9\textwidth}
+
+% Todo
+\usepackage[disable, colorinlistoftodos]{todonotes}
+\makeatletter
+\renewcommand{\todo}[2][]{\tikzexternaldisable\@todo[#1]{#2}\tikzexternalenable}
+\makeatother
+
+% To do nested enumerations
+\usepackage{enumitem}
+
+% Framed 
+\usepackage{framed}
+
+% For tables that span multiple pages
+\usepackage{longtable}
+
+% PGFPlots - nice looking data plots
+\usepackage{pgfplots}
+\pgfplotsset{width=\textwidth,height=7cm,
+  every mark/.style={mark=*,size=.6pt}}
+% \usepgfplotslibrary{plotmarks}
+
+% UML diagrams with tikz
+\usepackage{misc/tikz-uml}
+
+% Sarah's worst enemy
+\usepackage{tikz}
+
+% For rotating tikz
+\usepackage{rotating}
+
+\usetikzlibrary{arrows,shapes,snakes,automata,backgrounds,petri,trees,chains,fit,backgrounds,positioning}
+\usetikzlibrary{external}
+\tikzexternalize[prefix=tikz-output/]{report}
+\usepackage{tikz-qtree}
+\usepackage{verbatim}
+
+% Formatting paragraphs as sections
+\usepackage{titlesec}
+\setcounter{secnumdepth}{4}
+\titleformat{\paragraph}
+{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+% For code
+\usepackage{listings}
+% \definecolor{javared}{rgb}{0.6,0,0} % for strings
+% \definecolor{javagreen}{rgb}{0.25,0.5,0.35} % comments
+% \definecolor{javapurple}{rgb}{0.5,0,0.35} % keywords
+% \definecolor{javadocblue}{rgb}{0.25,0.35,0.75} % javadoc
+ 
+% \lstset{language=Java,
+% basicstyle=\ttfamily,
+% keywordstyle=\color{javapurple}\bfseries,
+% stringstyle=\color{javared},
+% commentstyle=\color{javagreen},
+% morecomment=[s][\color{javadocblue}]{/**}{*/},
+% numbers=left,
+% numberstyle=\tiny\color{black},
+% stepnumber=2,
+% numbersep=10pt,
+% tabsize=4,
+% showspaces=false,
+% showstringspaces=false}
+
+\usepackage[T1]{fontenc}
+\usepackage[scaled=0.9]{inconsolata}
+
+\usepackage{color}
+
+\definecolor{pblue}{rgb}{0.13,0.13,1}
+\definecolor{pgreen}{rgb}{0,0.5,0}
+\definecolor{pred}{rgb}{0.9,0,0}
+\definecolor{pgrey}{rgb}{0.46,0.45,0.48}
+
+\lstset{language=Java,
+  showspaces=false,
+  breaklines=true,
+  showtabs=false,
+  showstringspaces=false,
+  breakatwhitespace=true,
+  commentstyle=\color{pgreen},
+  keywordstyle=\color{pblue},
+  stringstyle=\color{pred},
+  basicstyle=\ttfamily,
+  moredelim=[il][\textcolor{pgrey}]{$$},
+  moredelim=[is][\textcolor{pgrey}]{\%\%}{\%\%}
+}
+
+
+% For citing
+\usepackage{cite}
+
+
+% For clickable references
+\usepackage{hyperref}
+
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+
+% Super-awesome referencing with capitals and no abbreviations (e.g. Figure
+% instead of fig., Equation instead of eq.)
+\usepackage[capitalise,noabbrev]{cleveref}
+\crefname{appsec}{Appendix}{Appendices}
+% \cref{label}   normal cross referencing
+% \Cref{label}   for beginning of sentence
+% \crefrange{label1,label2,...}   Equation (1) to (4) etc
+% \Crefrange{label1,label2,...}   Equation (1) to (4) etc at beginning of sentence
+
+
+\lstdefinelanguage{Cucumber}{
+    morekeywords={Szenario, Funktionalität, Angenommen, Und, Wenn, Dann, Scenario, Feature, Given, And, When, Then},
+    morecomment=[l]{\#},
+    morestring=[b]{"""},
+    morestring=[b]"
+%   morestring=[b]'
+}
+
+\lstnewenvironment{cucumber}[1][]
+{\lstset{
+    basicstyle=\ttfamily\color{black}\scriptsize,
+    % identifierstyle=\color{colIdentifier},
+    % keywordstyle=\color{colKeys}\bfseries,
+    % stringstyle=\color{colString},
+    % commentstyle=\color{colComments},
+    morecomment=[s]{"""}{"""}
+    columns=fixed,
+    tabsize=2,
+    frame=single,
+    extendedchars=true,
+    showspaces=false,
+    showstringspaces=false,
+    numbers=none,
+    numberstyle=\tiny,
+    breaklines=true,
+    breakautoindent=true,
+        language=Cucumber,
+        #1}
+}{}

@@ -1,0 +1,57 @@
+\begin{figure}[tb]
+\small{
+\begin{center}
+\setfigname{}
+\begin{tikzpicture}
+  \begin{axis}[axis equal image, enlargelimits=false, axis lines=none,
+    clip=false, scale=1.4]
+
+  % offset, brace amplitude and brace style
+  \def\offset{5}
+  \def\amp{10pt}
+  \def\xmax{1227}
+  \def\ymax{720}
+  \tikzset{brace/.style={draw, thick, decorate, decoration={brace, amplitude=\amp}}}
+  \tikzset{brace_mirror/.style={brace, decoration={mirror}}}
+  \tikzset{brace_node/.style={midway, text centered}}
+  \tikzset{label/.style={draw, stealth-, thick}}
+  \tikzset{arrow_node/.style={text centered}}
+
+  \addplot graphics [xmin=0,xmax=\xmax,ymin=0,ymax=\ymax] {analysis/edit_mode.png};
+
+  %%%%%%%%%%% BRACES %%%%%%%%%%%
+  % Modules
+  \draw[brace_mirror] (axis cs:-\offset,624) -- (axis cs:-\offset,338) node[brace_node, left, text width=1.5cm, xshift=-\amp] {Plug-in modules};
+
+  % Components
+  \draw[brace] (axis cs:650,676)--(axis cs:826,676) node[brace_node, above, text width=2.4cm, yshift=\amp] {Petri net component creators};
+
+  % Token
+  \draw[brace] (axis cs:840,676)--(axis cs:1050,676) node[brace_node, above, text width=3cm, yshift=\amp] {Token editing};
+
+  % Component manipulation
+  \draw[brace] (axis cs:193,676)--(axis cs:362,676) node[brace_node, above, text width=2.5cm, yshift=\amp] {Component editing};
+
+  % Zoom manipulation
+  \draw[brace] (axis cs:371,676)--(axis cs:496,676) node[brace_node, above, text width=1.5cm, yshift=\amp] {Zoom features};
+
+  % File editing 
+  \draw[brace] (axis cs:5,676)--(axis cs:142,676) node[brace_node, above, text width=2.5cm, yshift=\amp] {File editing};
+
+  %%%%%%%%%%% Arrows %%%%%%%%%%%%%
+  % Animate button
+  \draw[label] (axis cs:576,666)|-++(-4mm,17mm) node[arrow_node, left] {Toggle animate mode};
+  
+  % Select button
+  \draw[label] (axis cs:620,666)--++(0,20mm) node[arrow_node, above, text width=3cm] {Select components mode};
+
+  % Add rate parameter button
+  \draw[label] (axis cs:1160,666)--++(0,20mm) node[arrow_node, above, text width=3cm] {Add rate parameter};
+
+  \end{axis}
+\end{tikzpicture}
+\end{center}
+}
+\caption{A labelled diagram of PIPE 4 in editing mode.}
+\label{fig:edit}
+\end{figure}

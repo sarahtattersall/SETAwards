@@ -1,0 +1,18 @@
+\begin{figure}[tb]
+\begin{center}
+\setfigname{}\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,
+  thick,main node/.style={circle,fill=blue!20,draw,font=\sffamily\Large\bfseries}]
+
+  \node[main node] (b) {B};
+  \node[main node] (a) [below left of=b] {A};
+  \node[main node] (c) [below right of=b] {C};
+
+  \path[every node/.style={font=\sffamily\small}]
+    (b) edge node [left] {} (c)
+    (c) edge node [right] {} (a)
+    (a) edge node [right] {} (b);
+\end{tikzpicture}
+\end{center}
+\caption{An example depicting three packages A, B and C with a cyclic relationship. A imports B, B imports C and C imports A.}
+\label{tikz:cyclic}
+\end{figure}

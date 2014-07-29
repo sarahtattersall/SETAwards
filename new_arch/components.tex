@@ -1,0 +1,45 @@
+\begin{sidewaysfigure}[tb]
+\begin{center}
+\setfigname{}\begin{tikzpicture} 
+\umlclass[type=interface,x=0,y=0]{PetriNetComponent}{}{} 
+
+\umlclass[type=interface,below=2cm of PetriNetComponent]{Token}{}{} 
+
+\umlclass[type=interface,left=1cm of Token]{PlaceablePetriNetComponent}{}{}
+
+\umlclass[type=interface, template={Source, Target}, right=1cm of Token]{Arc}{}{} 
+
+
+\umlclass[type=interface,right=1cm of Arc]{RateParameter}{}{} 
+
+
+\umlinherit[]{PlaceablePetriNetComponent}{PetriNetComponent}
+\umlinherit[]{Token}{PetriNetComponent}
+\umlinherit[]{Arc}{PetriNetComponent}
+\umlinherit[]{RateParameter}{PetriNetComponent}
+
+\umlclass[type=interface,below=2cm of PlaceablePetriNetComponent, xshift=-2cm]{Connectable}{}{} 
+\umlinherit[]{Connectable}{PlaceablePetriNetComponent}
+
+
+\umlclass[type=interface,below=2cm of Connectable, xshift=-1.5cm]{Place}{}{} 
+\umlinherit[]{Place}{Connectable}
+
+\umlclass[type=interface,right=1cm of Place]{Transition}{}{} 
+\umlinherit[]{Transition}{Connectable}
+
+\umlclass[type=interface,right=1cm of Connectable]{Annotation}{}{} 
+\umlinherit[]{Annotation}{PlaceablePetriNetComponent}
+
+\umlclass[type=interface,below=2cm of Arc, xshift=-1.6cm]{InboundArc}{}{}
+\umlinherit[stereo={Place, Transition}, pos stereo=0.6]{InboundArc}{Arc}
+
+\umlclass[type=interface,right=1cm of InboundArc]{OutboundArc}{}{}
+\umlinherit[stereo={Transition, Place}, pos stereo=0.4]{OutboundArc}{Arc}
+\end{tikzpicture}
+
+\end{center}
+\caption{UML diagram of the PIPE 5 Petri net components hierarchy. At the top of the hierarchy is the \texttt{PetriNetComponent} which contains methods common to every component. The \texttt{PlaceablePetriNetComponent} interface then defines a set of methods for storing the coordinates of components that can have (x, y) locations on the canvas. The \texttt{Connectable} interface describes a class which an arc can connect to and is subclassed by the \texttt{Place} and \texttt{Transition} interfaces which represent the nodes in the bipartite graph. Furthermore an \texttt{Arc} has been split into its connection type using Java generics and makes operations on different arc types much easier. PIPE 5 implements a set of concrete classes which extend these interfaces.}
+\label{lst:petri_net_components_uml}
+\end{sidewaysfigure}
+
