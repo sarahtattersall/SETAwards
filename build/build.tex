@@ -1,5 +1,5 @@
 \section{Streamlining the build process}
-Before this project began PIPE 4's build process had not changed since it was first developed in 2003; it was hosted on SourceForge and made use of CVS for its version control. CVS is now generally considered a legacy version control system because its successors improve greatly on its feature set~\cite{so_who_still_uses_cvs} and as such we migrated the project to Git. We also migrated the repository hosting service from SourceForge to GitHub because GitHub provides a richer variety of developer tools including issue tracking (\cref{fig:gh_issues} and \cref{fig:issue_discussion}), forking (\cref{fig:pull_request}), easy releases (\cref{fig:gh_release}), continuous-integration (\cref{fig:travis_ci}) and the support of a project website.
+Before this project began PIPE 4's build process had not changed since it was first developed in 2003; it was hosted on SourceForge and made use of CVS for its version control. We migrated the project to Git and transferred the project from SourceForge to GitHub because GitHub provides a richer variety of developer tools including issue tracking (\cref{fig:gh_issues} and \cref{fig:issue_discussion}), forking (\cref{fig:pull_request}), easy releases (\cref{fig:gh_release}), continuous-integration (\cref{fig:travis_ci}) and the support of a project website.
 
 \mediumlinespacing
 \begin{figure}[tb]
@@ -61,11 +61,16 @@ Beyond this we set up a Maven build-system for PIPE 5 to provide a stable cross-
 
 We made use of Maven build plug-ins to simplify the full release process of PIPE 5 which now involves the following steps:
 \begin{itemize} 
-    \item Resolving any SNAPSHOT dependencies --- these are dependencies that reference unreleased versions of projects. In PIPE 5 the codebase has been split across multiple repositories so these are the dependencies that reference the other PIPE libraries.
-    \item Bumping the version number --- this involves bumping any of the major, minor or patch numbers in the pom for the next release.
-    \item Creating a runnable uber-jar --- this creates a jar of PIPE that can simply be run by double clicking on it without having to build the project.
-    \item Deploying a project to a Maven repository as an artifact --- all of the repositories involved in PIPE 5 are stored as artifacts on GitHub. This stage allows other developers to reference the projects in their dependencies without manually downloading the jars.
-    \item Generate a GitHub release --- this includes releasing the uber-jar and sources on GitHub for users to download. It appears on the GitHub project release page.
+    \item Resolving any SNAPSHOT dependencies
+     % --- these are dependencies that reference unreleased versions of projects. In PIPE 5 the codebase has been split across multiple repositories so these are the dependencies that reference the other PIPE libraries.
+    \item Bumping the version number
+     % --- this involves bumping any of the major, minor or patch numbers in the pom for the next release.
+    \item Creating a runnable uber-jar
+     % --- this creates a jar of PIPE that can simply be run by double clicking on it without having to build the project.
+    \item Deploying a project to a Maven repository as an artifact
+     % --- all of the repositories involved in PIPE 5 are stored as artifacts on GitHub. This stage allows other developers to reference the projects in their dependencies without manually downloading the jars.
+    \item Generate a GitHub release 
+    % --- this includes releasing the uber-jar and sources on GitHub for users to download. It appears on the GitHub project release page.
 \end{itemize}
 The command to execute all of the aforementioned steps can be performed in a single line, which significantly eases the build and release process of PIPE 5:
 \begin{lstlisting}

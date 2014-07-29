@@ -1,0 +1,13 @@
+\begin{figure}[ptb]
+ \hspace*{\fill}%
+
+\subcaptionbox{The raw times of the steady state exploration graph. The results gathered are for a sequential algorithm and for a parallel implementation with 100 states per thread running on 2, 4, and 8 virtual cores.} {
+    \input{eval/labs_state_space_b.tex}
+}\hfill
+\subcaptionbox{The relevant speedup gained over the sequential algorithm running our parallel algorithm with 100 states per thread and an increasing number of virtual cores. The graph shows that for each increase in the number of virtual cores we see a consistent speedup.} {
+    \input{eval/labs_state_space_a.tex}
+}
+\hspace*{\fill}%
+\caption{A comparison between the run-times and relevant speedup of PIPE 5's sequential state space exploration and its parallel algorithm with 100 states per thread running on 2, 4 and 8 virtual cores on a 3.2GHz quad-core hyper-threaded 3rd generation i7 processor.}
+\label{fig:scalability}
+\end{figure}

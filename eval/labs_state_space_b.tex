@@ -1,0 +1,58 @@
+\setfigname{}
+\begin{tikzpicture}
+\definecolor{color0}{rgb}{0.75,0,0.75}
+
+\begin{axis}[legend style={legend pos=north west},
+ylabel={Time (s)},
+xlabel={Number of states},
+legend entries={{sequential},{parallel 2 cores},{parallel 4 cores},{parallel 8 cores}}
+% scaled ticks=false
+]
+
+% Sequential
+\addplot [magenta, mark=*, mark size=2pt]
+coordinates {
+(98279,     88.633369210) 
+(262144,   267.658476596) 
+(331776,   362.664597933) 
+(530202,   610.926546563) 
+(726836,   878.042343995) 
+(1099999, 1445.821632163) 
+};
+
+% 2
+\addplot [green, mark=*, mark size=2pt]
+coordinates {
+(98279,    41.786394435)
+(262144,  126.064339906)
+(331776,  170.664153825)
+(530202,  283.808419361)
+(726836,  419.506128369)
+(1099999, 672.649284048)
+};
+
+% 4
+\addplot [yellow, mark=*, mark size=2pt]
+coordinates {
+(98279,    24.373880968) 
+(262144,   74.762257833) 
+(331776,  105.559247500)
+(530202,  169.459170682)
+(726836,  249.133023117)
+(1099999, 410.412285810)
+};
+
+% 8
+\addplot [red, mark=*, mark size=2pt]
+coordinates {
+(98279,    20.521322935)  
+(262144,   64.652309353)  
+(331776,   87.323938113) 
+(530202,  144.356493902) 
+(726836,  209.819065630) 
+(1099999, 346.097981548) 
+};
+
+
+\end{axis}
+\end{tikzpicture}

@@ -1,9 +1,9 @@
 \subsection{Embedding a context-free grammar}
-During the animation of a SPN the time it takes for a transition to fire is exponentially distributed with rate parameter $\lambda$. Functional expressions allow a transition rates or an arcs weight to alter based on properties of individual places in the Petri net. They are an important extension of Petri nets because they allow for more expressive models to be created. For example if we wish to simulate the action of clearing all items in a buffer then it is very simple with a functional expression; the arcs weight is set to \texttt{\#($p_0$)} which will always remove every token from $p_0$ when the transition is fired.
+Functional expressions allow an arcs associated weight, which is the number of tokens it will take or produce in a place, to alter based on properties of individual places in the Petri net. They are an important extension of Petri nets because they allow for more expressive models to be created. For example if we wish to simulate the action of clearing all items in a buffer then it is very simple with a functional expression; the arcs weight is set to \texttt{\#($p_0$)} which will always remove every token from $p_0$ when the transition is fired.
 
 The implementation of functional expressions in PIPE 4, partly seen in \cref{lst:expr_eval}, was a large area of concern due to it's implementation being a series of string manipulations, a poor API which was not tested and a lack of integration with the existing analysis modules meaning analysing Petri nets with functional expressions produced incorrect results or run-time errors.
 \input{new_arch/expr_eval.tex}
 
-To over-come these problems we introduced an entirely new, fully extendible context-free grammar using ANTLR v4 for Java. Our grammar can be seen in \cref{lst:bnf} and it's usage in \cref{tbl:functional_weights}.
+To over-come these problems we introduced an entirely new, fully extendible context-free grammar using ANTLR v4 for Java. Our grammar can be seen in \cref{lst:bnf} and some use cases in \cref{tbl:functional_weights}.
 \input{new_arch/antlr}
 \input{new_arch/bnf_usage}

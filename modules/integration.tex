@@ -1,0 +1,34 @@
+\begin{figure}
+\begin{lstlisting}[language=Cucumber,
+                   frame=single, 
+                  ]
+Feature: state space exploration of tangible states only
+
+@tangibleOnly
+Scenario: Parsing a simple Petri net file
+  Given I use the Petri net located at /simple.xml
+  When I generate the exploration graph sequentially
+  Then I expect to see 2 state transitions
+  And I expect a record with state
+    """
+       {'P0' : { 'Default' : 1 }, 'P1' : { 'Default' : 0 } }
+    """
+  And successor
+    """
+       {'P0' : { 'Default' : 0 }, 'P1' : { 'Default' : 1 } }
+    """
+  And rate 1.0
+  And I expect a record with state
+    """
+       {'P0' : { 'Default' : 0 }, 'P1' : { 'Default' : 1 } }
+    """
+  And successor
+    """
+       {'P0' : { 'Default' : 1 }, 'P1' : { 'Default' : 0 } }
+    """
+  And rate 1.0
+
+\end{lstlisting}
+\caption{An example Cucumber integration test written in Gherkin for the state space exploration algorithm. We designed the step definitions to flow like an English sentence and found the best way to describe a Markov chain state was by expressing it in JSON.}, 
+\label{lst:cucumber_state_space}
+\end{figure}
