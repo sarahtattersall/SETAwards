@@ -1,7 +1,7 @@
 \section{A new software architecture for PIPE 5}
 For PIPE 5 we performed a complete redesign of the back-end logic of a Petri net and released it as a stand alone core library and Maven artifact. 
 
-We began by defining a set of interfaces that depict a Petri net's internal components (see \cref{lst:petri_net_components_uml}).  Furthermore in order to aid the design of the core Petri net structure we made use of several design patterns such as the acyclic visitor and builder patterns.
+We began by defining a set of interfaces that depict a Petri net's internal components (see \cref{lst:petri_net_components_uml}). In order to aid the design of the core Petri net structure we made use of several design patterns such as the acyclic visitor and builder patterns.
 \input{new_arch/components.tex}
 
 In order to aid the programmatic creation of a Petri net, used primarily in unit-tests but also by users of our core libraries, we created a domain specific language (DSL). The clarity and effectiveness of this DSL can be seen in \cref{lst:dsl}.
