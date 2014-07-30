@@ -2,7 +2,6 @@
 \begin{center}
 \begin{lstlisting}[frame=single]
 private String compareTransitions(...) {
-  ...
   if((!compareID || source[i].getId().equals(comparison[j].getId())) &&
     (!compareName || source[i].getName().equals(comparison[j].getName())) &&
     (!compareMarking || source[i].getCurrentMarkingView().get(0).getCurrentMarking()
@@ -12,7 +11,6 @@ private String compareTransitions(...) {
     {
       s = "Identical";
     }
-  ...
 }
 \end{lstlisting}
   
