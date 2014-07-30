@@ -3,6 +3,12 @@ The PIPE codebase was found to suffer from poor coding practices (see ~\cref{lst
 
 A structural analysis of PIPE 4 was performed by the Stan4J standalone tool. It reports cyclic dependencies as tangles and considers a tangle to be `A subgraph with at least two nodes, where each node is reachable from each other. Every cycle lies in a tangle and every tangle consists of just cycles'~\cite{stan_whitepaper}. It reports PIPE 4 as 29.17\% tangled which is shown diagrammatically in~\cref{fig:tangle}.
 
+In modern day programming it is considered good practice for classes and methods to be short, composed of auxiliary methods and to have a single purpose~\cite{so_can_a_function_be_too_short}. Unfortunately PIPE 4 has many large classes, some with over \num{3000} lines of code. 
+
+\input{analysis/bad_code}
+
+\input{analysis/qaplug.tex}
+
 \begin{figure}[tb]
 \begin{center}
     \includegraphics[width=0.8\textwidth]{analysis/tangle_annotated.png} 
@@ -10,8 +16,3 @@ A structural analysis of PIPE 4 was performed by the Stan4J standalone tool. It 
     \label{fig:tangle}
 \end{center}
 \end{figure}
-
-In modern day programming it is considered good practice for classes and methods to be short, composed of auxiliary methods and to have a single purpose~\cite{so_can_a_function_be_too_short}. Unfortunately PIPE 4 has many large classes, some with over \num{3000} lines of code. 
-
-\input{analysis/bad_code}
-\input{analysis/qaplug.tex}
