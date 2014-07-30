@@ -11,20 +11,20 @@ Scenario: Parsing a simple Petri net file
   Then I expect to see 2 state transitions
   And I expect a record with state
     """
-       {'P0' : { 'Default' : 1 }, 'P1' : { 'Default' : 0 } }
+       {`P0' : { `Default' : 1 }, `P1' : { `Default' : 0 } }
     """
   And successor
     """
-       {'P0' : { 'Default' : 0 }, 'P1' : { 'Default' : 1 } }
+       {`P0' : { `Default' : 0 }, `P1' : { `Default' : 1 } }
     """
   And rate 1.0
   And I expect a record with state
     """
-       {'P0' : { 'Default' : 0 }, 'P1' : { 'Default' : 1 } }
+       {`P0' : { `Default' : 0 }, `P1' : { `Default' : 1 } }
     """
   And successor
     """
-       {'P0' : { 'Default' : 1 }, 'P1' : { 'Default' : 0 } }
+       {`P0' : { `Default' : 1 }, `P1' : { `Default' : 0 } }
     """
   And rate 1.0
 
