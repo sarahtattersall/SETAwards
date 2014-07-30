@@ -1,4 +1,4 @@
-\mediumlinespacing
+% \mediumlinespacing
 \begin{figure}[ptb]
 \begin{framed}
 \begin{itemize}
@@ -25,7 +25,7 @@
     
     \item \textcolor{red}{\textbf{Reliability: 494 (1847)}}
     \begin{itemize}
-        \item \textit{`Malicious code vulnerability - May expose internal representation by returning reference to mutable object count: 0 (10)'}. --- Returning a reference to a mutable object value stored in one of the object's fields exposes the internal representation of the object. If instances are accessed by untrusted code, and unchecked changes to the mutable object would compromise security or other important properties, you will need to do something different. Returning a new copy of the object is better approach in many situations.
+        \item \textit{`Malicious code vulnerability - May expose internal representation by returning reference to mutable object count: 0 (10)'}. --- Returning a reference to a mutable object value stored in one of the object's fields exposes the internal representation of the object. Returning a new copy of the object is better approach in many situations.
         \item \textit{`Magic Number Count: (473) 1385'} --- Checks for magic numbers.
     \end{itemize}
 
@@ -41,4 +41,4 @@
 \caption{A re-evaluation of the most important issues flagged about the PIPE 4 codebase against the number of these issues in PIPE 5. The previous PIPE 4 values are shown in brackets.}
 \label{fig:eval_qaplug}
 \end{figure}
-\normallinespacing
+% \normallinespacing

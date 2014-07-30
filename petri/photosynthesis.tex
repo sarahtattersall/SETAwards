@@ -1,5 +1,6 @@
 \setfigname{}
-\begin{tikzpicture}[node distance=2.5cm,>=stealth',bend angle=45,auto]
+\internal{}
+\begin{tikzpicture}[node distance=1.5cm and 1cm,>=stealth',bend angle=45,auto]
     \node [place,tokens=1, label=south:dark] (dark) {};
 
     \node [timed transition,label=north:sunrise] (sunrise) [above right of=dark] {}
@@ -11,11 +12,11 @@
     \node [place,tokens=1, label=south:H2O] (h2o) [above left of = sunrise] {};
         % edge [post] (t3);
 
-    \node [timed transition,label=north:photosynthesis, xshift=1.75cm] (photo) [above right of=h2o] {}
+    \node [timed transition,label=north:photosynthesis, xshift=1.05cm] (photo) [above right of=h2o] {}
     edge [pre]  (h2o);    
 
 
-    \node [place,tokens=1, label=south:CO2, xshift=-1.75cm] (co2) [above left of = photo] {}
+    \node [place,tokens=1, label=south:CO2, xshift=-1.05cm] (co2) [above left of = photo] {}
     edge [post] (photo);
 
     \node [place, label=south:light] (light) [above right of = sunset] {}
@@ -24,23 +25,23 @@
     edge [pre] (photo)
     edge [post] (photo);
 
-    \node [place, label=south:C6H12O6, xshift=1.75cm] (sugar) [above right of = photo] {}
+    \node [place, label=south:C6H12O6, xshift=1.05cm] (sugar) [above right of = photo] {}
     edge [pre] (photo);
 
-    \node [place, label=south:O2,xshift=1.75cm] (o2) [below right of = photo] {}
+    \node [place, label=south:O2,xshift=1.05cm] (o2) [below right of = photo] {}
     edge [pre] (photo);
         % edge [post] (t3);
 
 
-    \node [timed transition,label=north:metabolism, xshift=1.75cm] (met) [above right of=o2] {}
+    \node [timed transition,label=north:metabolism, xshift=1.05cm] (met) [above right of=o2] {}
     edge [pre] (sugar)
     edge [pre]  (o2);   
 
     \node[coordinate, yshift=0.2cm] (empty1) [right=0.8cm of met]{};
     \node[coordinate, yshift=-0.2cm] (empty2) [right=0.8cm of met]{};
-    \node[coordinate] (empty3) [above=0.5cm of sugar]{};
-    \node[coordinate] (empty3) [above=0.5cm of co2]{};
-    \node[coordinate] (empty4) [below=0.5cm of sunset]{};
+    \node[coordinate] (empty3) [above=0.2cm of sugar]{};
+    \node[coordinate] (empty3) [above=0.2cm of co2]{};
+    \node[coordinate] (empty4) [below=0.2cm of sunset]{};
     \node[coordinate] (empty5) [left=0.5cm of co2]{};
     \node[coordinate] (empty6) [left=0.5cm of h2o]{};
 

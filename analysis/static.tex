@@ -1,4 +1,6 @@
-\subsection{Static analysis}
-Running the QAPlug plug-in for IntelliJ found a total of \num{12904} code quality issues. These metrics helped to identify areas that needed serious improvement and a further selection of the quality issues highlighted by the plug-in can be seen in \cref{fig:qaplug}. 
+% \subsection{Static analysis}
+The PIPE codebase was found to suffer from poor coding practices, as shown in ~\cref{lst:identical}, so numerous were the instances of this that it was necessary to use automated analysis to track down these issues. Indeed the QAPlug plug-in for IntelliJ found a total of \num{12904} code quality issues as shown in \cref{fig:qaplug}.
+
+\input{analysis/bad_code}
 
 \input{analysis/qaplug.tex}

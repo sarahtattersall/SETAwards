@@ -1,0 +1,13 @@
+\section{What is PIPE?}
+PIPE, shown in \cref{fig:edit}, is a graphical tool for creating, simulating and analysing Petri nets. In October 2013 the latest release was known as PIPE 4; this version currently has over 90,000 downloads to date on SourceForge~\cite{downloads}. 
+
+% Whilst the graphical user interface (GUI), seen in \cref{fig:edit}, is easy to use the underlying software architecture has become bloated and riddled with bugs.
+
+\begin{figure}[H]
+\input{petri/photosynthesis}
+\caption{A Petri net representing the photosynthesis process. The blue circles are known as places and are resource holders, the smaller black circles are known as tokens and represent resources. Transitions are the rectangles and represent actions. Arcs connect places to transitions and transitions to places.}
+% During animation when an action takes place the specified number of tokens are removed from any inbound places and tokens are produced in the outbound places, if there is no weight on an arc the default value is 1. In order for an action to take place there must be a token in every inbound place, for example the current state photosynthesis cannot take place because it is still dark outside, it requires the sun to rise in order to happen. }
+\label{tikz:photo}
+\end{figure}
+
+\input{analysis/pipe_edit}
