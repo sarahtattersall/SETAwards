@@ -1,6 +1,3 @@
-\subsection{Tangles}
-PIPE 5 has significant improvement gains in the structuring of its classes and packages. Stan4J now reports only two tangles of size 11 and 2 opposed to the four tangles in PIPE 4 of size 18, 10, 7 and 5. This reduction in tangles reduces the overall tangle metrics for the repositories as seen in \cref{tbl:tangle_results} and the tangle graphs are visualised in \cref{fig:tangle_results}. 
-
 \begin{figure}[ptb]
 \begin{center}
 \subcaptionbox{The original PIPE 4 tangle graph reporting four tangles of size 18, 10, 7 and 5.}{
@@ -30,25 +27,3 @@ PIPE 5 has significant improvement gains in the structuring of its classes and p
 \label{fig:tangle_results}
 \end{center}
 \end{figure}
-
-\begin{table}[tb]
-\small
-\begin{center}
-  \begin{tabular}{| l | c |}
-    \hline
-    Repository & Tangle (\%) \\ 
-    \hline
-    PIPEMarkovChain & 0 \\ 
-    \hline
-    PIPEAnalysis & 0 \\    
-    \hline
-    PIPECore & 7.10\\
-    \hline
-    PIPE & 12.47\\
-    \hline
-
-  \end{tabular}
-\caption{Break down of overall tangle metric for the separate PIPE 5 repositories as reported by Stan4J. This metric is directly correlated to the number of reported tangles in \cref{fig:tangle_results} and shows a good reduction from the 29.17\% reported for PIPE 4. }
-\label{tbl:tangle_results}
-\end{center}
-\end{table}

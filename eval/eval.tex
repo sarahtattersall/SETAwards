@@ -1,15 +1,20 @@
 \section{Evaluation}
-We evaluated the success of the software engineering on this project by performing the same quantitative analyses on the codebase and analysing the performance gains of the new analysis algorithms.
 
+PIPE 5 has significant improvement gains in the structuring of its classes and packages. Stan4J now reports only two tangles of size 11 and 2 opposed to the four tangles in PIPE 4 of size 18, 10, 7 and 5. This reduction in tangles reduces the overall tangle metrics for the repositories as seen in \cref{tbl:tangle_results} and the tangle graphs are visualised in \cref{fig:tangle_results}. 
 \input{eval/tangles}
-\input{eval/static}
-\input{eval/modules}
+\input{eval/tangles_table}
+
+By analysing all the repositories PIPE 5 was split into we can see that the previous count of \num{12904} reported issues for PIPE 4 has been considerably reduced to a total of \num{937} issues. The break down of quality issues across repositories can be seen in \cref{tbl:pipe5_qaplug}. Furthermore Stan4J reported that the project size has reduced by a third from around \num{66000} lines of code to \num{22000} which is far more maintainable.
+
+\input{eval/qaplug_table}
 
 
-\subsection{Testimonial}
-The following testimonial from Steve Doubleday a researcher at University of California Irvine, who works closely with the International Computer Science Institute (ICSI), summaries the key architectural achievements of this project:
+Our new sequential state space exploration algorithm  yields increasing speedups compared to PIPE 4 for small state spaces as shown in \cref{tbl:pipe5_vs_pipe4_sequential}. Interestingly the algorithm for the sequential exploration does not differ from that of PIPE 4, the speedup comes from advanced data structure usage, memoization and other optimisation techniques.
 
-\begin{quote}
-% \singlespacing
-    \textit{``PIPE has been re-engineered top to bottom, as part of its most significant upgrade in years. Key improvements are the separation of business logic from the GUI, the addition of a large suite of unit tests, and the re-packaging of the software as Maven artifacts.  All of this makes my work significantly easier. The work at ICSI (International Computer Science Institute), and my own dissertation both rely on extensions to the basic PetriNet capabilities, to better enable the creation of neurally-plausible cognitive models of action. The existing ICSI software consists of many modifications to a very old version of PIPE. My intent is to re-build the existing ICSI software on top of the new PIPE artifacts. This will make both current development and future maintenance much cleaner, and will also make it more attractive to other cognitive scientists to re-use the ICSI extensions.''}
-\end{quote}
+\input{eval/speedup_table.tex}
+
+To investigate the scalability of our parallel algorithm we analysed the new sequential and parallel algorithms against each other using a machine with a 3.40Ghz quad-core i7 processor. \cref{fig:scalability} shows that whilst the speedup from 2 to 4 virtual cores is promising at around 60\%, we do not get such good results from running the algorithm with 8 virtual cores. On profiling we found that the bottleneck in our algorithm is the creation of a states primary and secondary hash codes, taking 68\% of the algorithms run-time. Unfortunately since there is no implementation of a concurrent queue in Java that does not allow duplicates, we discovered that quite often it is possible to add a state twice to the exploration queue, meaning that its successors get generated twice too, causing their hash codes to be re-calculated.
+
+\input{eval/labs_state_space.tex}
+
+Nevertheless in order to put into perspective the speedup gained by our new parallel algorithm using 100 states per thread and 8 virtual-cores we compared the run-times of a 4096 state Petri net with this algorithm and PIPE 4. Whilst PIPE 4 explores the state space in 9.37 minutes, our new algorithm can explore it in 2.65 seconds which amounts to an incredible 211x speedup. Moreover our new algorithm can solve a Petri net with \num{1099999} states in 5.77 minutes which is faster than the time taken to solve the 4096 state Petri net in PIPE 4!
