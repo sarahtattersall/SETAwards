@@ -1,5 +1,33 @@
 \section{Multi-threaded analysis modules}
-PIPE 5 supports new implementations of the state space exploration and steady state solver modules. These modules calculate the different possible allocation of resources within the system (also known as states), the percentage time spent in each state at equilibrium and other useful metrics such as the average number of tokens within a place. 
+PIPE 5 supports new implementations of analysis modules which calculates all possible allocations of resources within the system (also known as states), the percentage time spent in each state at equilibrium and other useful metrics such as the average number of tokens within a place. 
 
-\input{modules/state_space.tex}
-\input{modules/steady_state.tex}
+The state space exploration of a Petri net takes an initial state and performs a breadth-first search to explore the entire state space. To parallelise this process we developed a thread based algorithm that takes inspiration from Hadoop and is in the form of a MapReduce problem. 
+
+In order to improve performance of the state space exploration algorithm the code was profiled using the YourKit Java profiler which led to some interesting changes being made. For example pre-calculation stages and temporary caching.
+
+\input{modules/integration}
+
+% Since we made use of temporary caches in the algorithm one interesting change involved pre-computing a states two hash codes on creation so that when determining equality of states and membership in our custom written data set we need only check two numerical values rather than the entire states themselves. 
+
+% In order to process states in parallel the main thread starts up a specified number of worker threads, normally one for each virtual core. Once running each thread performs the sequential breadth first algorithm, keeping track of the state transitions which it has processed. 
+
+
+% We reimplemented a sequential algorithm using object-orientated techniques to improve the readability and re-use of the code and implemented integration tests using the Cucumber framework. An example of these can be seen in \cref{lst:cucumber_state_space}.
+
+
+% In order to explore Petri nets with large state spaces we reduce the amount of memory used via a dynamic-probabilistic hashing algorithm described in \cite{knottenbelt1996generalised}. This algorithm compresses a state into two numerical values using two separate hash functions. Therefore two states, $s$ and $s'$, are considered equal if and only if $h_1(s) = h_1(s')$ and $h_2(s) = h_2(s')$.
+
+
+% In order to try and avoid threads processing a state more than once we make use of a concurrent non-blocking shared queue.
+% We allow each worker thread to run until it has processed a specified number of states or the exploration queue is empty after which it returns with the data it has collected. The main algorithm then collects the results as threads finish, writes them to disk, stores the explored states in a custom written compressed state data structure and starts another iteration off. This continues until the state space has been fully explored.
+
+In order to solve the steady state of a system at equilibrium we solve an equation in the form $Ax = b$. There are many numerical ways to do this and for our sequential algorithm a Gauss-Seidel implementation proved to be fast enough.
+
+In order to achieve further speedups we adapted the algorithm described in~\cite{dingle2002distributed} to perform asynchronous Gauss-Seidel with chaotic relaxation across multiple cores on a single processor. We allowed inter-thread communication by using a concurrent thread-safe data structure that blocks at element level to store the values of $x$.
+
+ % For each iteration of the main Gauss-Seidel algorithm we run separate worker threads that calculate successive improvements on their specific rows of $x$. 
+% In order to get maximum performance out of each thread we allow $n$ sub-iterations to run before returning to check convergence. This value of $n$ can be customised at run-time.  
+
+% When all threads have returned $x$ is checked for convergence. If it is deemed to have converged we return the normalised value; if not we continue for further iterations.
+
+We implemented integration tests for all our algorithms using the Cucumber framework, an example test can be seen in \cref{lst:cucumber_state_space}.

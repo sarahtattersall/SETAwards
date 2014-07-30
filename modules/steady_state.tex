@@ -1,7 +1,0 @@
-\subsection{Calculating the steady state}
-In order to solve the steady state of a system at equilibrium we must solve an equation in the form $Ax = b$. There are many numerical ways to do this and for our sequential algorithm a Gauss-Seidel implementation proved to be fast enough.
-
-In order to achieve further speedups we adapted the algorithm described in~\cite{dingle2002distributed} to run on a single multi-core processor. For each iteration of the main Gauss-Seidel algorithm we run separate worker threads that calculate successive improvements on their specific rows of $x$. 
-In order to get maximum performance out of each thread we allow $n$ sub-iterations to run before returning to check convergence. This value of $n$ can be customised at run-time.  Moreover we allow inter-thread communication of updated results during sub-iterations by using an \texttt{AtomicReferenceArray} to store the values of $x$. This is a concurrent thread-safe data structure that blocks at element level allowing a larger level of concurrency than other Java data structures which block at the \texttt{add} and \texttt{get} level.
-
-When all threads have returned $x$ is checked for convergence. If it is deemed to have converged we return the normalised value; if not we continue for further iterations.
