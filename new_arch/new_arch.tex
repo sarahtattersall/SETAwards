@@ -1,8 +1,8 @@
 \section{A new software architecture for PIPE 5}
 For PIPE 5 we performed a complete redesign of the back-end logic of a Petri net and released it as a stand alone core library and Maven artifact. 
 
-We began by defining a set of interfaces that depict a Petri net's internal components (see \cref{lst:petri_net_components_uml}). In order to aid the design of the core Petri net structure we made use of several design patterns such as the acyclic visitor and builder patterns.
-\input{new_arch/components.tex}
+We began by defining a set of interfaces that reflect a Petri net's internal components. In order to aid the design of the core Petri net structure we made use of several design patterns such as the acyclic visitor and builder patterns.
+% \input{new_arch/components.tex}
 
 In order to aid the programmatic creation of a Petri net, used primarily in unit-tests but also by users of our core libraries, we created a domain specific language (DSL). The clarity and effectiveness of this DSL can be seen in \cref{lst:dsl}.
 
@@ -12,32 +12,25 @@ In order to aid the programmatic creation of a Petri net, used primarily in unit
 \vspace{0.5cm}
 \begin{lstlisting}[numbers=left, language=Java, frame=single]
 PetriNet petriNet = new PetriNet();
-Token defaultToken = new ColoredToken("Default", Color.BLACK);
-Token redToken = new ColoredToken("Red", Color.RED);
-Place p0 = new DiscretePlace("P0");
-p0.setTokenCount("Default", 1);
-Place p1 = new DiscretePlace("P1");
-p1.setTokenCount("Red", 1);
-p1.setTokenCount("Default", 2);
-Transition t0 = new DiscreteTransition("T0");
+Token defaultToken = new ColoredToken(``Default'', Color.BLACK);
+Token redToken = new ColoredToken(``Red'', Color.RED);
+Place p0 = new DiscretePlace(``P0'');
+p0.setTokenCount(``Default'', 1);
+Place p1 = new DiscretePlace(``P1'');
+p1.setTokenCount(``Red'', 1);
+p1.setTokenCount(``Default'', 2);
+Transition t0 = new DiscreteTransition(``T0'');
 t0.setTimed(false);
-Transition t1 = new DiscreteTransition("T1");
+Transition t1 = new DiscreteTransition(``T1'');
 t1.setTimed(true);
-t1.setRate(new NormalRate("#(P0, Red)"));
+t1.setRate(new NormalRate(``#(P0, Red)''));
 Map<String, String> arc1Weights = new HashMap<>();
-arc1Weights.put("Default", "4");
+arc1Weights.put(``Default'', `4'');
 InboundArc arc1 = new InboundNormalArc(p0, t0, arc1Weights);
 Map<String, String> arc2Weights = new HashMap<>();
-arc2Weights.put("Default", "#(P1)*2");
+arc2Weights.put(``Default'', ``#(P1)*2'');
 OutboundArc arc2 = new OutboundNormalArc(t0, p0, arc2Weights);
-petriNet.add(defaultToken);
-petriNet.add(redToken);
-petriNet.add(p0);
-petriNet.add(p1);
-petriNet.add(t0);
-petriNet.add(t1);
-petriNet.add(arc1);
-petriNet.add(arc2);
+petriNet.add(defaultToken); petriNet.add(redToken); petriNet.add(p0); petriNet.add(p1); petriNet.add(t0); petriNet.add(t1); petriNet.add(arc1); petriNet.add(arc2);
 \end{lstlisting}
 \caption{Example code showing how to create Petri net components from their constructors in PIPE 5.}
 \end{subfigure}
@@ -58,7 +51,8 @@ PetriNet petriNet = APetriNet.with(AToken.called("Default").withColor(Color.BLAC
 \caption{Example code showing how to create a Petri net with the DSL provided with PIPE 5.}
 \end{subfigure}
 
-\caption{Comparison code emphasising that using the domain specific language (DSL) shipped in the PIPECore library not only reduces the lines taken to create a Petri net by a third, but also significantly increases the readability.}
+
+\caption{Comparison code emphasising that using the domain specific language (DSL) shipped in the core library increases elegance and readability.}
 \label{lst:dsl}
 \end{figure}
 
