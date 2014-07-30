@@ -1,7 +1,70 @@
 \section{A new software architecture for PIPE 5}
 For PIPE 5 we performed a complete redesign of the back-end logic of a Petri net and released it as a stand alone core library and Maven artifact. 
 
-\input{new_arch/interfaces}
-\input{new_arch/dsl}
-\input{new_arch/bnf}
+We began by defining a set of interfaces that depict a Petri net's internal components (see \cref{lst:petri_net_components_uml}).  Furthermore in order to aid the design of the core Petri net structure we made use of several design patterns such as the acyclic visitor and builder patterns.
+\input{new_arch/components.tex}
 
+In order to aid the programmatic creation of a Petri net, used primarily in unit-tests but also by users of our core libraries, we created a domain specific language (DSL). The clarity and effectiveness of this DSL can be seen in \cref{lst:dsl}.
+
+\begin{figure}[tb]
+\centering
+\begin{subfigure}[b]{\linewidth}
+\vspace{0.5cm}
+\begin{lstlisting}[numbers=left, language=Java, frame=single]
+PetriNet petriNet = new PetriNet();
+Token defaultToken = new ColoredToken("Default", Color.BLACK);
+Token redToken = new ColoredToken("Red", Color.RED);
+Place p0 = new DiscretePlace("P0");
+p0.setTokenCount("Default", 1);
+Place p1 = new DiscretePlace("P1");
+p1.setTokenCount("Red", 1);
+p1.setTokenCount("Default", 2);
+Transition t0 = new DiscreteTransition("T0");
+t0.setTimed(false);
+Transition t1 = new DiscreteTransition("T1");
+t1.setTimed(true);
+t1.setRate(new NormalRate("#(P0, Red)"));
+Map<String, String> arc1Weights = new HashMap<>();
+arc1Weights.put("Default", "4");
+InboundArc arc1 = new InboundNormalArc(p0, t0, arc1Weights);
+Map<String, String> arc2Weights = new HashMap<>();
+arc2Weights.put("Default", "#(P1)*2");
+OutboundArc arc2 = new OutboundNormalArc(t0, p0, arc2Weights);
+petriNet.add(defaultToken);
+petriNet.add(redToken);
+petriNet.add(p0);
+petriNet.add(p1);
+petriNet.add(t0);
+petriNet.add(t1);
+petriNet.add(arc1);
+petriNet.add(arc2);
+\end{lstlisting}
+\caption{Example code showing how to create Petri net components from their constructors in PIPE 5.}
+\end{subfigure}
+
+\begin{subfigure}[b]{\linewidth}
+\vspace{0.5cm}
+\begin{lstlisting}[numbers=left,language=Java,frame=single]
+PetriNet petriNet = APetriNet.with(AToken.called("Default").withColor(Color.BLACK))
+        .and(AToken.called("Red").withColor(Color.RED))
+        .and(APlace.withId("P0").and(5, "Default").tokens())
+        .and(APlace.withId("P1").and(1, "Red").and(2, "Default").to())
+        .and(AnImmediateTransition.withId("T0"))
+        .and(ATimedTransition.withId("T1").andRate("#(P0, Red)"))
+        .and(ANormalArc.withSource("P0").andTarget("T0").and("4", "Default").tokens())
+        .andFinally(ANormalArc.withSource("T0").andTarget("P0")
+            .with("#(P1)*2", "Default").tokens());
+\end{lstlisting}
+\caption{Example code showing how to create a Petri net with the DSL provided with PIPE 5.}
+\end{subfigure}
+
+\caption{Comparison code emphasising that using the domain specific language (DSL) shipped in the PIPECore library not only reduces the lines taken to create a Petri net by a third, but also significantly increases the readability.}
+\label{lst:dsl}
+\end{figure}
+
+Functional expressions allow an arcs associated weight, which is the number of tokens it will take or produce in a place, to alter based on properties of individual places in the Petri net. They are an important extension of Petri nets because they allow for more expressive models to be created.
+
+
+The existing implementation of functional expressions was an area of concern due it being based on string manipulations, a poor API which was not tested and a lack of integration with the existing analysis modules meaning analysing Petri nets with functional expressions produced incorrect results or run-time errors. To overcome these problems we introduced a fully extensible context-free grammar using ANTLR v4 for Java, as shown in \cref{lst:bnf} and illustrated in \cref{tbl:functional_weights}.
+\input{new_arch/antlr}
+\input{new_arch/bnf_usage}

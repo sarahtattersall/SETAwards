@@ -1,8 +1,0 @@
-% \subsection{Embedding a context-free grammar}
-Functional expressions allow an arcs associated weight, which is the number of tokens it will take or produce in a place, to alter based on properties of individual places in the Petri net. They are an important extension of Petri nets because they allow for more expressive models to be created.
-
- % For example if we wish to simulate the action of clearing all items in a buffer then it is very simple with a functional expression; the arcs weight is set to \texttt{\#($p_0$)} which will always remove every token from the place $p_0$ when the transition is fired.
-
-The existing implementation of functional expressions was an area of concern due it being based on string manipulations, a poor API which was not tested and a lack of integration with the existing analysis modules meaning analysing Petri nets with functional expressions produced incorrect results or run-time errors. To overcome these problems we introduced a fully extensible context-free grammar using ANTLR v4 for Java, as shown in \cref{lst:bnf} and illustrated in \cref{tbl:functional_weights}.
-\input{new_arch/antlr}
-\input{new_arch/bnf_usage}
